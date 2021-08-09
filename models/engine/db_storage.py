@@ -2,7 +2,7 @@
 """File of DBStorage class"""
 from sqlalchemy import create_engine, engine
 from os import getenv
-from base_model import Base, BaseModel
+from models.base_model import Base, BaseModel
 
 from models.user import User
 from models.state import State
