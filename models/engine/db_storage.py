@@ -44,32 +44,36 @@ class DBStorage:
                    "Amenity",
                    "Place",
                    "Review"]
-        
+
         objects_dictionary = {}
 
-        if cls != None:
+        print(cls)
+
+        if cls:
             if type(cls) == str:
                 data = self.__session.query(eval(cls)).all()
             else:
                 data = self.__session.query(cls).all()
             for obj in data:
+                print("---------------------------")
+                print(type(obj))
                 key = "{}.{}".format(obj.__class__.__name__, obj.id)
                 objects_dictionary[key] = obj
-            
+            return objects_dictionary
+
         else:
-            data = self.__session.query(User).all()
-            data += self.__session.query(State).all()
+            # data = self.__session.query(User).all()
+            data = self.__session.query(State).all()
             data += self.__session.query(City).all()
-            data += self.__session.query(Amenity).all()
-            data += self.__session.query(Place).all()
-            data += self.__session.query(Review).all()
+            # data += self.__session.query(Amenity).all()
+            # data += self.__session.query(Place).all()
+            # data += self.__session.query(Review).all()
+            all_objs = {}
 
-
-        for value in objects_dictionary:
-            key = "{}.{}".format(type(value).__name__, value.id)
-            objects_dictionary[key] = value
-
-        return objects_dictionary
+            for value in objects_dictionary.items():
+                # key = "{}.{}".format(value[0], value[1])
+                all_objs[value[0]] = value[1]
+            return all_objs
 
     def new(self, obj):
         """add the object to the current database session"""

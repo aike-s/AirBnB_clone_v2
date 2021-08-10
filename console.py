@@ -125,7 +125,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[arguments[0]]()
-        storage.save()
 
         if len(arguments) > 1:
             for param in arguments[1:]:
@@ -138,6 +137,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     setattr(new_instance, attribute[0], attribute[1])
 
+        storage.new(new_instance)
         print(new_instance.id)
         storage.save()
 
@@ -234,9 +234,9 @@ class HBNBCommand(cmd.Cmd):
 
         # print(print_list)
         print_list = []
-        objects = storage.all()
+        argument = args.split(' ')  # remove possible trailing args
+        objects = storage.all(argument[0])
         if args:
-            argument = args.split(' ')  # remove possible trailing args
             if argument[0] not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
