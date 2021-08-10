@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """ Console Module """
 import cmd
+from models.engine.db_storage import DBStorage
+from os import getenv
 import sys
 from models.base_model import BaseModel
 from models.__init__ import storage
@@ -211,19 +213,38 @@ class HBNBCommand(cmd.Cmd):
         print("[Usage]: destroy <className> <objectId>\n")
 
     def do_all(self, args):
-        """ Shows all objects, or all objects of a class"""
-        print_list = []
+        # from models.engine.db_storage import all
+        # """ Shows all objects, or all objects of a class"""
+        # print_list = []
 
+        # if args:
+        #     args = args.split(' ')[0]  # remove possible trailing args
+        #     if args not in HBNBCommand.classes:
+        #         print("** class doesn't exist **")
+        #         return
+        #     if getenv("HBNB_TYPE_STORAGE")=="db":
+        #         storage = DBStorage()
+
+        #     for k, v in storage._FileStorage__objects.items():
+        #         if k.split('.')[0] == args:
+        #             print_list.append(str(v))
+        # else:
+        #     for k, v in storage._FileStorage__objects.items():
+        #         print_list.append(str(v))
+
+        # print(print_list)
+        print_list = []
+        objects = storage.all()
         if args:
-            args = args.split(' ')[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
+            argument = args.split(' ')  # remove possible trailing args
+            if argument[0] not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
+            for k, v in objects.items():
+                if k.split('.')[0] == argument[0]:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in objects.items():
                 print_list.append(str(v))
 
         print(print_list)

@@ -15,7 +15,7 @@ class State(BaseModel, Base):
     name = Column(String(128),
                   nullable=False)
 
-    if getenv("HBNB_MYSQL_DB") == "db":
+    if getenv("HBNB_TYPE_STORAGE") == "db":
         cities = relationship(
             "City", cascade="all, delete-orphan", backref="state")
 
@@ -26,7 +26,7 @@ class State(BaseModel, Base):
             instances with state_id equals to the current State.id"""
             cities_list = []
             all_cities = models.storage.all(City)
-            
+
             for city in all_cities.values():
                 if city.state_id == self.id:
                     cities_list.append(city)
