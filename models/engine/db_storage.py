@@ -55,15 +55,13 @@ class DBStorage:
             else:
                 data = self.__session.query(cls).all()
             for obj in data:
-                print("---------------------------")
-                print(type(obj))
                 key = "{}.{}".format(obj.__class__.__name__, obj.id)
                 objects_dictionary[key] = obj
             return objects_dictionary
 
         else:
-            # data = self.__session.query(User).all()
-            data = self.__session.query(State).all()
+            data = self.__session.query(User).all()
+            data += self.__session.query(State).all()
             data += self.__session.query(City).all()
             # data += self.__session.query(Amenity).all()
             # data += self.__session.query(Place).all()
