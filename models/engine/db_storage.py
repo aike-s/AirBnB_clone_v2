@@ -47,8 +47,6 @@ class DBStorage:
 
         objects_dictionary = {}
 
-        print(cls)
-
         if cls:
             if type(cls) == str:
                 data = self.__session.query(eval(cls)).all()
