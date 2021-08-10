@@ -24,6 +24,7 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
+        from models import storage
         if kwargs:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
@@ -38,7 +39,9 @@ class BaseModel:
 
         else:
             self.id = str(uuid.uuid4())
-            self.created_at = self.updated_at = datetime.now()
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            storage.new(self) #Mamarracho para ver si se corrige el punto 2
 
     def __str__(self):
         """Returns a string representation of the instance"""
@@ -49,7 +52,7 @@ class BaseModel:
         """Updates updated_at with current time when instance is changed"""
         from models import storage
         self.updated_at = datetime.now()
-        storage.new(self)
+        storage.new(self) # Acá esto se movio pero no se muy bien que hace
         storage.save()
 
     def to_dict(self):

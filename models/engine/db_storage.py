@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """File of DBStorage class"""
 from sqlalchemy import create_engine, engine
-from os import getenv
+from os import getenv, environ
 from models.base_model import Base, BaseModel
 
 from models.user import User
@@ -37,9 +37,25 @@ class DBStorage:
 
     def all(self, cls=None):
         """Return all objects according to their class name"""
-        if cls != None:
-            data = self.__session(self.classes()[cls])
+        classes = ["BaseModel",
+                   "User",
+                   "State",
+                   "City",
+                   "Amenity",
+                   "Place",
+                   "Review"]
+        
+        objects_dictionary = {}
 
+        if cls != None:
+            if type(cls) == str:
+                data = self.__session.query(eval(cls)).all()
+            else:
+                data = self.__session.query(cls).all()
+            for obj in data:
+                key = "{}.{}".format(obj.__class__.__name__, obj.id)
+                objects_dictionary[key] = obj
+            
         else:
             data = self.__session.query(User).all()
             data += self.__session.query(State).all()
@@ -48,7 +64,6 @@ class DBStorage:
             data += self.__session.query(Place).all()
             data += self.__session.query(Review).all()
 
-        objects_dictionary = {}
 
         for value in objects_dictionary:
             key = "{}.{}".format(type(value).__name__, value.id)
