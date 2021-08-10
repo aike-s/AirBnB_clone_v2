@@ -5,12 +5,12 @@ from sqlalchemy import Column, String
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.sql.sqltypes import Float, Integer
 
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
 from os import getenv
 
 
-class Place(BaseModel):
+class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = 'places'
 
