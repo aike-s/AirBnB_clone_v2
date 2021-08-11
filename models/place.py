@@ -3,11 +3,25 @@
 
 from sqlalchemy import Column, String
 from sqlalchemy.sql.schema import ForeignKey
-from sqlalchemy.sql.sqltypes import Float, Integer
+from sqlalchemy import Float, Integer, Table
 
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
 from os import getenv
+
+place_amenity = Table("place_amenity",
+                      Base.metadata,
+                      Column('place_id',
+                             String(60),
+                             ForeignKey
+                             ('places.id'),
+                             primary_key=True,
+                             nullable=False),
+                      Column('amenity_id',
+                             String(60),
+                             ForeignKey('amenities.id'),
+                             primary_key=True,
+                             nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -28,6 +42,9 @@ class Place(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE") == 'db':
         reviews = relationship("Review", cascade='all, delete',
                                backref="place")
+
+        amenities = relationship(
+            "Amenity", secondary="place_amenity", viewonly=False)
 
     else:
         @property
