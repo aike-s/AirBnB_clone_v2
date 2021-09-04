@@ -4,8 +4,7 @@ apt-get -y update
 apt-get -y install nginx
 
 # Create the folders if they doesn't exist
-mkdir -p data
-mkdir -p /data/web_static/
+
 mkdir -p /data/web_static/releases/
 mkdir -p /data/web_static/shared/
 mkdir -p /data/web_static/releases/test/
@@ -20,7 +19,7 @@ echo "<html>
 </html>">/data/web_static/releases/test/index.html
 
 # Create a symlink
-ln -sfn /data/web_static/releases/test/ /data/web_static/current
+ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 # Give ownership of the /data/ folder to the ubuntu user and group
 chown -R ubuntu:ubuntu /data/
