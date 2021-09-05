@@ -25,7 +25,8 @@ ln -sf /data/web_static/releases/test/ /data/web_static/current
 chown -R ubuntu:ubuntu /data/
 
 # Config nginx to serve the content of /data/web_static/current/ to hbnb_static
+search="server_name _;"
 add_config="location /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}"
-sed -i "42i $add_config" /etc/nginx/sites-available/default
+sed -i "/$search/a\\$add_config" /etc/nginx/sites-available/default
 
 service nginx restart
