@@ -1,7 +1,7 @@
-#!/usr/bin/python3
-# Generates a .tgz archive from the contents of the web_static folder
-import time
+#!/usr/bin/python3import time
 from fabric.api import local, run
+import time
+
 
 def do_pack():
     """ Generates a .tgz archive from the contents of the web_static folder """
@@ -9,9 +9,8 @@ def do_pack():
     file_name = "web_static_{}.tgz".format(time.strftime("%Y%m%dT%H%M%S"))
 
     local('mkdir -p versions')
-    result = run('tar -xf versions/' + file_name + 'jweb_static/*')
-
-    if result.succeeded:
-        return local('realpath' + file_name)
-    else:
+    try:
+        local('tar -xf versions/' + file_name + 'web_static/*')
+        return local('realpath ' + file_name)
+    except:
         None
