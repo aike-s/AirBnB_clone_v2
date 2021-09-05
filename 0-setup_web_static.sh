@@ -16,7 +16,7 @@ sudo echo "<html>
   <body>
     Holberton School
   </body>
-</html>"> | sudo tee /data/web_static/releases/test/index.html
+</html>" | sudo tee /data/web_static/releases/test/index.html
 
 # Create a symlink
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
