@@ -10,7 +10,7 @@ def do_pack():
 
     local('mkdir -p versions')
     try:
-        local('tar -xf versions/' + file_name + 'web_static/*')
-        return local('realpath ' + file_name)
+        local('tar -xf versions/' + file_name + ' web_static/*')
+        return 'versions/{}'.format(file_name)
     except:
-        None
+        return None
