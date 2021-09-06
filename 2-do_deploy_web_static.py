@@ -3,8 +3,8 @@ from genericpath import exists
 from fabric.api import local, run, env, put
 import time
 from os import path
+env.hosts = ['3.91.5.156', '34.228.153.16']
 env.user = 'ubuntu'
-env.hosts = ['3.91.5.156', '3.91.5.156']
 
 
 def do_pack():
@@ -20,7 +20,6 @@ def do_pack():
         return None
 
 
-
 def do_deploy(archive_path):
     """ Distributes an archive to your web servers """
 
@@ -28,7 +27,7 @@ def do_deploy(archive_path):
         return False
 
     file_name = archive_path[9:-4]
-    dir_name = "/data/web_static/releases/" + file_name)
+    dir_name = "/data/web_static/releases/{}/".format(file_name)
 
     try:
         """ Upload tar archive """
@@ -42,7 +41,7 @@ def do_deploy(archive_path):
         run('sudo rm /tmp/{}.tgz'.format(file_name))
 
         """ Move info """
-        run('sudo mv {}/web_static/* /data/web_static/releases/{}/'.format(dir_name, file_name))
+        run('sudo mv {}/web_static/* {}'.format(dir_name, dir_name))
 
         """ Delete the symbolic link """
         run('sudo rm -rf /data/web_static/current')
