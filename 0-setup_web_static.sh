@@ -16,13 +16,13 @@ sudo echo "<html>
   <body>
     Holberton School
   </body>
-</html>" | sudo tee /data/web_static/releases/test/index.html
+</html>" > /data/web_static/releases/test/index.html
 
 # Create a symlink
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 # Give ownership of the /data/ folder to the ubuntu user and group
-sudo chown -R ubuntu:ubuntu /data
+sudo chown -Rh ubuntu:ubuntu /data/
 
 # Config nginx to serve the content of /data/web_static/current/ to hbnb_static
 search="server_name _;"
