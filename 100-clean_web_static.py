@@ -54,6 +54,7 @@ def do_deploy(archive_path):
     except:
         return False
 
+
 def do_deploy():
     """  """
 
@@ -66,3 +67,9 @@ def do_deploy():
     answer = do_deploy(path)
 
     return answer
+
+
+def do_clean(number=0):
+    """  """
+
+    
