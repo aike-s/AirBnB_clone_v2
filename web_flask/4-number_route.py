@@ -2,7 +2,7 @@
 """
 Add /number/<n> route
 """
-from flask import Flask
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
@@ -27,6 +27,8 @@ def print_text_python(text='is cool'):
 def print_int(n):
     if int(n):
         return '{} is a number'.format(n)
+    else:
+        return render_template('templates/error_page.html')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

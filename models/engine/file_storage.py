@@ -19,7 +19,6 @@ class FileStorage:
                     obj_list[key] = value
             return(obj_list)
 
-
     def new(self, obj):
         """Adds new object to storage dictionary"""
         self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
@@ -63,3 +62,7 @@ class FileStorage:
                         self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+
+    def close(self):
+        """ Deserialises the JSON file to objects """
+        self.reload()
