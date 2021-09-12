@@ -7,20 +7,28 @@ from flask import Flask
 
 app = Flask(__name__)
 
+
 @app.route('/', strict_slashes=False)
 def hello():
+    """ Print hello """
     return 'Hello HBNB!'
+
 
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
+    """ Print HBNB """
     return 'HBNB'
+
 
 @app.route('/c/<text>', strict_slashes=False)
 def print_text_c(text):
+    """ Print variable text """
     return 'C {}'.format(text.replace('_', ' '))
+
 
 @app.route('/python/(<text>)', strict_slashes=False)
 def print_text_python(text='is cool'):
+    """ Print variable text with default string """
     return 'Python {}'.format(text.replace('_', ' '))
 
 if __name__ == "__main__":
