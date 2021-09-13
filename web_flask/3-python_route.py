@@ -26,7 +26,8 @@ def print_text_c(text):
     return 'C {}'.format(text.replace('_', ' '))
 
 
-@app.route('/python/(<text>)', strict_slashes=False)
+@app.route('/python', strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
 def print_text_python(text='is cool'):
     """ Print variable text with default string """
     return 'Python {}'.format(text.replace('_', ' '))

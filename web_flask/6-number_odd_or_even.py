@@ -26,6 +26,7 @@ def print_text_c(text):
     return 'C {}'.format(text.replace('_', ' '))
 
 
+@app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def print_text_python(text='is cool'):
     """ Print variable text with default string """
@@ -46,7 +47,7 @@ def print_on_templante(n):
 
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
-def print_on_templante(n):
+def print_on_templante_even_or_odd(n):
     """ Render template only if num is int with even/odd """
     if (n % 2) == 0:
         to_print = 'Number: {} is even'.format(n)
